@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/index.css">
+        <title>Eduxplorer</title>
+    </head>
+
+
+<!--Navigation bar-->
+    <body class="page-background">
+
+		<input class="menu-bar" type="checkbox" id="toggle">
+		<label for="toggle" class="navbar-toggler">
+			<div class="bar"></div>
+			<div class="bar"></div>
+			<div class="bar"></div>
+		</label>
+		<nav>		
+			<ul id="navbar" class="navigation-bar">
+				<li style="opacity: 0; height: 15vw;">
+					hehe
+				</li>
+				<div class="linebar"></div>
+				<li>
+					<a href="#" onclick="return show('Home','Preferences','Settings','About')">HOME</a>
+				</li>
+				<div class="linebar"></div>
+				<li>
+					<a href="#" onclick="return show('Preferences','Home','Settings','About')">EXPLORE</a>
+				</li>
+				<div class="linebar"></div>
+				<li>
+					<a href="#" onclick="return show('Settings','Home','Preferences','About')">SETTINGS</a>
+				</li>
+				<div class="linebar"></div>
+				<li>
+					<a href="#" onclick="return show('About','Home','Preferences','Settings')">ABOUT</a>
+				</li>
+				<div class="linebar"></div>
+				<div style=" opacity: 50%; font-weight: normal;padding: 10vw;">
+					v0.2
+				</div>
+			</ul>
+		</nav>
+		<label for="toggle" class="outsidenav"></label>
+<!--Navigation bar-->
+
+
+
+<!--Home Page-->
+		<div id="Home" style="display: grid;">
+			<div class="home">
+				<div class="home-design">
+					<img class="home-title-logo" src="/img/Icon_144x144.png">
+					<h1 class="home-subtitle">Eduxplorer</h1>
+					<div id="start">
+						<a  href="#" style="color: white; font-weight: bold;" onclick="return show('Preferences','Home','Settings','About')">Start the adventure!</a>
+					</div>
+				</div>
+				<div class="home-container">
+					<label id="ins1" class="home-instructions">
+						<span style="font-weight: bold;"><h3>What is Eduxplorer?</h3></span>
+							<h5 style="opacity: 70%;">Eduxplorer is a user-friendly application 
+								designed to streamline the process of finding the 
+								right school. Our solution utilizes 
+								the latest web development technologies to provide 
+								an efficient and engaging experience.</h5>
+					</label>
+					
+					<label id="ins2" class="home-instructions">
+						<span style="font-weight: bold;"><h3>Why Eduxplorer?</h3></span>
+						<h5 style="opacity: 70%;">
+							The education industry is constantly evolving and 
+							with this comes the challenge of finding the right
+							school for a child. Parents or guardians often spend 
+							significant time researching and filtering through 
+							various options to find the most suitable institution. 
+							Our proposed web application aims to address this 
+							challenge by providing a user-friendly solution 
+							that streamlines the process of finding a school.
+							<br><br><br>
+						</h5>
+					</label>
+				</div>
+			</div>
+	</div>
+
+<!--Explore Page-->
+		<div id="Preferences" onload="setProgress();" style="display: none;">
+				<div class="Main">
+				<div class="circle-container">
+					<div class="progress">
+						<div class="overlay"></div>
+						<div id="loadingleft"class="left"></div>
+						<div id="loadingright"class="right"></div>
+					</div>
+				</div>
+
+				<div class="Main-container">
+					<div class="Main-lbl_container">
+						<label id="instruction-location" class="pref-label">
+							<h3>Location</h3> 
+							<h4 style="opacity: 70%;">Insert the starting location <span style="opacity: 70%;">(could be own address if trying to find a school nearby).</span></h4>
+						</label>
+						<div id="linebar-loc" class="linebar"></div>
+						<label id="lbl1" class="pref-label">REGION:</label>
+						<div id="linebar-loc" class="linebar"></div>
+						<label id="lbl3" class="pref-label">PROVINCE:</label>
+						<div id="linebar-loc" class="linebar"></div>
+						<label id="lbl3" class="pref-label">CITY/MUNI:</label>
+						<div id="linebar-loc" class="linebar"></div>
+						<label id="lbl4" class="pref-label">BARANGAY:</label>
+						<div id="linebar-loc" class="linebar"></div>
+
+						<select id="regOption" onchange="fetchRegData(province,1);setLabelReg();" name="region" class="select"></select>
+						<select id="provOption" onchange="fetchRegData(city,2);setLabelProv();" name="province" class="select"></select>
+						<select id="cityOption" onchange="fetchRegData(barangay,3);setLabelCity();"name="city" class="select"></select>
+						<select id="brgOption" onchange="setLabelBrg();" name="barangay"  class="select"></select>
+
+						<div id="next">
+							<a href="#" style="color: white; font-weight: bold;" onclick="" >Next</a>
+						</div>
+						<div id="prev">
+							<a href="#" style="color: white; font-weight: bold;" onclick="" >Prev</a>
+						</div>
+					</div>	
+			</div>
+		</div>
+	</div>
+
+
+<!--Settings Page-->
+		<div id="Settings" style="display: none;">
+			<div class="settings-container">
+				<h2>SETTINGS</h2>
+				<br>
+				<h3 style="font-weight: bold;">Theme</h3>
+				<div>
+					<input type="radio" name="theme" id="light" onclick="setTheme()" checked> 
+				<label for="light"> Light Mode</label>
+				</div>
+				<br>
+				<div>
+					<input type="radio" name="theme" id="dark" onclick="setTheme()" > 
+					<label class="asdasd" for="dark">Dark Mode</label>
+				</div>
+			</div>
+		</div>
+
+<!--About  Page-->
+		<div id="About" style="display: none;">
+			<div class="about">
+				<div class="about-design">
+					<img class="about-title-logo" src="/img/Icon_144x144.png">
+					<h1 class="about-subtitle">Eduxplorer</h1>
+					
+				</div>
+				<div class="about-container">
+					<label id="ins1" class="home-instructions">
+						<span style="font-weight: bold;"><h3>What is Eduxplorer?</h3></span>
+							<h5 style="opacity: 70%;">Eduxplorer is a user-friendly application 
+								designed to streamline the process of finding the 
+								right school. Our solution utilizes 
+								the latest web development technologies to provide 
+								an efficient and engaging experience.</h5>
+					</label>
+					
+					<label id="ins2" class="home-instructions">
+						<span style="font-weight: bold;"><h3>Why Eduxplorer?</h3></span>
+						<h5 style="opacity: 70%;">
+							<span class="text-indent">Welcome to School Hunting, the web application that streamlines
+								the process of finding the perfect school for your child.</span>
+						
+							Our team, composed of 
+							<ul>
+								<li>John Enriuqe Espinoza</li>
+								<li>John Arvic Guzman</li>
+								<li>Jonel Montifalcon</li>
+								<li>Winston Cantila</li>
+								<li>Antonio Bonsoran</li>
+								<li>Edrain Geronimo</li>
+							</ul>
+							
+							<span class="text-indent">who are passionate about leveraging
+								the latest web development technologies to create efficient
+								solutions that make a difference in people's lives.</span>
+							<span class="text-indent">Our mission is to provide parents, guardians, and education
+								stakeholders with a user-friendly and engaging tool to find
+								schools that meet their desired criteria. We understand that
+								finding the right school is a crucial decision, and we are
+								committed to making the process faster, easier, and more effective.</span>
+						</h5>
+					</label>
+				</div>
+			</div>
+		</div>
+    </body>
+	<script src="./js/index.js"></script>
+</html>
