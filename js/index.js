@@ -19,10 +19,10 @@ const barangay = './json/refbrgy.json';
 const schoolcourses = './json/refschoolcourse.json';
 const schooltracks = './json/refschooltrack.json';
 const regOption = document.getElementById("regOption");
-const sound1 = new Audio('./audio/InterfaceClick1.mp3');
-const sound2 = new Audio('./audio/InterfaceClick2.mp3');
-const sound3 = new Audio('./audio/InterfaceClick3.mp3');
-const sound4 = new Audio('./audio/InterfaceError.wav');
+const sound1 = new Audio('/www/audio/InterfaceClick1.mp3');
+const sound2 = new Audio('/www/audio/InterfaceClick2.mp3');
+const sound3 = new Audio('/www/audio/InterfaceClick3.mp3');
+const sound4 = new Audio('/www/audio/InterfaceError.wav');
 const sound = [sound1,sound2,sound3,sound4];
 var regCode = null;
 var progenabled;
@@ -519,7 +519,6 @@ function removeSelectedCourse(course) {
 
 searchInput.addEventListener('click', () => {
   const inputValue = searchInput.value.trim().toLowerCase();
-  console.log(courses)
   const filteredCourses = courses.filter(course => course.startsWith(inputValue));
   if (filteredCourses.length > 0) {
       showAutocompleteOptions(filteredCourses);
