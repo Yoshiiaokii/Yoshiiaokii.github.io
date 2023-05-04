@@ -204,31 +204,87 @@ function clear(comboBox) {
   }
 }
 
-function setLabelReg() {
-  e = document.getElementById("regOption");
-  text = e.options[e.selectedIndex].text;
+
+let locations = [];
+
+function getlocations() {
+  clearLocations()
+  regloc = document.getElementById("regOption");
+  regtxt = regloc.options[regloc.selectedIndex].text;
+  provloc = document.getElementById("provOption");
+  provtxt = provloc.options[provloc.selectedIndex].text;
+  cityloc = document.getElementById("cityOption");
+  citytxt = cityloc.options[cityloc.selectedIndex].text;
+  brgloc = document.getElementById("brgOption");
+  brgtxt = brgloc.options[brgloc.selectedIndex].text;
+  locations = [regtxt,provtxt,citytxt,brgtxt];
+  infoloc = document.getElementById("info-div-loc1");
+  for (i = 0 ; i < locations.length; i++) {
+    const locationList = document.createElement('li');
+    const locationListText = document.createElement('a');
+    locationList.classList.add('locationList');
+    locationListText.classList.add('locationListText');
+    locationListText.innerText = locations[i];
+    infoloc.appendChild(locationList);
+    locationList.appendChild(locationListText);
+  }
+  getEducation()
+  getCoursesTracks();
+
 }
 
-function setLabelProv() {
-  e = document.getElementById("provOption");
-  text = e.options[e.selectedIndex].text;
+function getEducation() {
+  educlev = document.getElementById("level-select");
+  eductxt = educlev.options[educlev.selectedIndex].text;
+  educlab = document.getElementById("info-div-level1");
+  educlab.innerHTML = eductxt;
 }
 
-function setLabelCity() {
-  e = document.getElementById("cityOption");
-  text = e.options[e.selectedIndex].text;
+function clearLocations() {
+    if (locations.length != 0) {
+      document.getElementById("info-div-loc1").innerHTML = '';
+    }
 }
+let listofcourses = [];
 
-function setLabelBrg() {
-  e = document.getElementById("brgOption");
-  text = e.options[e.selectedIndex].text;
+function getCoursesTracks() {
+  listofcourses = [];
+  infoct = document.getElementById("info-div-coursetrack");
+  selco = document.getElementById("selected-container");
+  infoct.innerHTML = '';
+  let children=selco.childNodes;  
+  for (var i = 0; i < children.length; i++) {
+    txt = children[i].innerText.substr(0,children[i].innerText.length-2)
+    listofcourses.push(txt)
+    
+  }
+  if (listofcourses.length > 0) {
+    changeInfoHeight(true);
+  }
+  else changeInfoHeight(false);
+  
+  
+  for (i = 0 ; i < listofcourses.length; i++) {
+    const coursesList = document.createElement('li');
+    const coursesListText = document.createElement('a');
+    coursesList.classList.add('locationList');
+    coursesListText.classList.add('locationListText');
+    coursesListText.innerText = listofcourses[i];
+    infoct.appendChild(coursesList);
+    coursesList.appendChild(coursesListText);
+  }
+  
 }
-
 //==================================================================
 // NEXT PREV NAVIGATIONS
 //==================================================================
-var progress = 2;
+var progress = 1;
 setAddProgress();
+
+function changeprogIndicator() {
+  document.getElementById("progressIndicator").innerText = progress;
+}
+
 
 document
   .getElementById("next")
@@ -244,50 +300,77 @@ document
   .addEventListener("click", decrementProgress);
 
 function incrementProgress() {
-  console.log(progenabled)
+  brg = document.getElementById("brgOption");
+  
   try {
-    if (progress == 1) {
-      brg = document.getElementById("brgOption");
-      if (brg.options[brg.selectedIndex].text != "-Select Barangay-" || "") {
-          progenabled = true
-      }
-  }
+    switch (progress) {
+      case 1:
+        if (brg.options[brg.selectedIndex].text != "-Select Barangay-" || "") {
+            progenabled = true
+        }
+        break;
+      case 2:
+            progenabled = progenabled1;
+        break;
+      case 3:
+        progenabled = true;
+        break;
+
+      default:
+        break;
+    }
   }
   catch(err) {
     playsoundclick(3);
   }
   
-  if (progress == 2) {
-      progenabled = progenabled1;
-  }
   if (progress != 4) {
       if (progenabled) {
           playsoundclick(0)
           progress = progress + 1;
           progenabled = false;
           setAddProgress();
-
+          changeprogIndicator()
       }
       else {
         playsoundclick(3);
       }
+    }
   }
-  
-}
 
 function decrementProgress() {
 
   if (progress != 1) {
       progress = progress - 1;
       setSubProgress();
+      changeprogIndicator()
   }
 
 }
 
-function setAddProgress() {
+function changeTitle() {
+  progtxt = document.getElementById("progressIndicator2");
+  switch (progress) {
+    case 1:
+      progtxt.innerText = "Location";
+      break;
+    case 2:
+      progtxt.innerText = "School Preferences";
+      break;
+    case 3:
+      progtxt.innerText = "Are you sure?";
+      break;
+  
+    default:
+      break;
+  }
+}
 
+function setAddProgress() {
+  changeTitle()
   switch (progress) {
       case 1:
+
           document.getElementById("loadingleft").style.animation = "load1 0.5s linear forwards";
           document.getElementById("prev").style.visibility = 'hidden';
           break;
@@ -297,6 +380,7 @@ function setAddProgress() {
           break;
       case 3:
           document.getElementById("loadingright").style.animation = "load3 0.5s linear forwards";
+          getlocations();
           break;
       case 4:
           document.getElementById("loadingright").style.animation = "load4 0.5s linear forwards";
@@ -308,15 +392,14 @@ function setAddProgress() {
 }
 
 function setSubProgress() {
-
+  changeTitle()
   switch (progress) {
       case 1:
-          document.getElementById("prev").style.visibility = 'hidden';
+          document.getElementById("prev").style.visibility = 'hidden'; 
           document.getElementById("loadingleft").style.animation = "load1s 0.5s linear forwards";
           break;
       case 2:
           document.getElementById("loadingright").style.animation = "load2s 0.5s linear backwards";
-
           break;
       case 3:
           document.getElementById("loadingright").style.animation = "load3s 0.5s linear forwards";
@@ -340,9 +423,13 @@ function changeExplorepPage() { //explore pages (next,prev)
       case 2:
           document.getElementById("explore-page1").style.display = 'none';
           document.getElementById("explore-page2").style.display = 'grid';
+          document.getElementById("explore-page3").style.display = 'none';
 
           break;
       case 3:
+        document.getElementById("explore-page1").style.display = 'none';
+        document.getElementById("explore-page2").style.display = 'none';
+        document.getElementById("explore-page3").style.display = 'grid';
           break;
       default:
           break;
@@ -350,6 +437,18 @@ function changeExplorepPage() { //explore pages (next,prev)
 
 }
 
+function changeInfoHeight(bool) {
+  if (bool) {
+    document.getElementById("Main-info-container").style.gridTemplateRows ="40vw 2px 10vw 30vw 2px 15vw 2px 10vw 2fr";
+    document.getElementById("info-div-coursetrack").style.display = 'block';
+    document.getElementById("lblinfo3").style.display = 'block';
+  }
+  else {
+    document.getElementById("Main-info-container").style.gridTemplateRows ="40vw 2px 10vw 30vw 2px 15vw 2px 30vh";
+    document.getElementById("info-div-coursetrack").style.display = 'none';
+    document.getElementById("lblinfo3").style.display = 'none';
+  }
+}
 
 function setTheme() {
   playsoundclick(0)
@@ -373,31 +472,37 @@ function setTheme() {
 const searchInput = document.getElementById('search-input');
 const autocompleteContainer = document.getElementById('autocomplete-container');
 const selectedContainer = document.getElementById('selected-container');
-checklevel()
+checklevel();
 let courses = [];
 
 function checklevel() {
   level = document.getElementById("level-select");
   searchinp = document.getElementById("search-input");
+  lvlinfo = document.getElementById("lblinfo3");
   switch ((level.options[level.selectedIndex].value)) {
       case "default":
+          lvlinfo.innerHTML = '';  
           searchinp.disabled = true;
           searchinp.placeholder = "";
           progenabled1 = false;
           break;
       case "Senior High School":
+          lvlinfo.innerHTML = 'TRACK(s):';  
           searchinp.disabled = false
           searchinp.placeholder = "Search a Track..."
           progenabled1 = true;
           parsejsonct(schooltracks);
           break;
       case "College":
+          lvlinfo.innerHTML = 'COURSE(s):';
+
           searchinp.disabled = false
           searchinp.placeholder = "Search a Course..."
           progenabled1 = true;
           parsejsonct(schoolcourses);
           break;
       default:
+          lvlinfo.innerHTML = '';  
           searchinp.disabled = true
           searchinp.placeholder = ""
           progenabled1 = true;
@@ -406,7 +511,7 @@ function checklevel() {
 }
 
 function runsearch(data) {
-  console.log(`Inside ${arguments.callee.name}`) //logs function name
+  console.log(`Inside ${arguments.callee.name}`) //logs function name 
   courses = [];
   for (var i in data) {
       courses.push([i, data, [i]]);

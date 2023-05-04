@@ -48,7 +48,7 @@
     <label for="toggle" class="outsidenav"></label>
     <!--Navigation bar-->
     <!--Home Page-->
-    <div id="Home" style="display: grid;">
+    <div id="Home" style="display: none;">
       <div class="home">
         <div class="home-design">
           <img class="home-title-logo" src="./img/Icon_144x144.png">
@@ -77,11 +77,14 @@
       </div>
     </div>
     <!--Explore Page-->
-    <div id="Preferences" onload="setProgress();" style="display: none;">
+    <div id="Preferences" onload="setProgress();" style="display: grid;">
       <div class="Main">
         <div class="circle-container">
+          <label class="overlaytext2" id="progressIndicator2">Location</label>
           <div class="progress">
             <div class="overlay"></div>
+            <label class="overlaytext" id="progressIndicator">1</label>
+            
             <div id="loadingleft" class="left"></div>
             <div id="loadingright" class="right"></div>
           </div>
@@ -98,7 +101,7 @@
           <div class="Main-lbl_container" style="padding-bottom: 20vw;">
             <label id="instruction-location" class="pref-label">
               <h3>Location</h3>
-              <h4 style="opacity: 70%;">Insert the starting location <span style="opacity: 70%;">(could be own address if trying to find a school nearby).</span>
+              <h4 style="opacity: 70%;">Please enter a starting location for your search.</span>
               </h4>
             </label>
             <div id="linebar-loc" class="linebar"></div>
@@ -110,10 +113,10 @@
             <div id="linebar-loc" class="linebar"></div>
             <label id="lbl4" class="pref-label">BARANGAY:</label>
             <div id="linebar-loc" class="linebar"></div>
-            <select id="regOption" onchange="fetchRegData(province,1);setLabelReg();" name="region" class="select"></select>
-            <select id="provOption" onchange="fetchRegData(city,2);setLabelProv();" name="province" class="select"></select>
-            <select id="cityOption" onchange="fetchRegData(barangay,3);setLabelCity();" name="city" class="select"></select>
-            <select id="brgOption" onchange="setLabelBrg();" name="barangay" class="select"></select>
+            <select id="regOption" onchange="fetchRegData(province,1);" name="region" class="select"></select>
+            <select id="provOption" onchange="fetchRegData(city,2);" name="province" class="select"></select>
+            <select id="cityOption" onchange="fetchRegData(barangay,3);" name="city" class="select"></select>
+            <select id="brgOption" onchange="" name="barangay" class="select"></select>
           </div>
         </div>
         <div id="explore-page2" class="Main-container" style="display: none;">
@@ -121,27 +124,49 @@
             <!--Page 2-->
             <label id="instruction-location" class="pref-label">
               <h3>Level</h3>
-              <h4 style="opacity: 70%;">Insert the Grade/Year level you want and its Course or Strand if it has any.</h4>
+              <h4 style="opacity: 70%;">Please select your education level with Track or Course if needed.</h4>
             </label>
             <div id="linebar-loc" class="linebar"></div>
-            <label class="pref-label" id="levellbl1"><center>LEVEL:</center></label>
+            <label class="pref-label" id="levellbl1">LEVEL:</label>
             <div style="grid-row: 3; grid-column:2/3;justify-content: center; display: flex;">
               <select id="level-select" class="select" style="width:68vw;" onchange=" checklevel();">
                 <option value="default">-Select Level-</option>
-                <option value="Kindergarten">Kindergarten</option>
-                <option value="Elementary">Elementary</option>
-                <option value="High School">High School</option>
-                <option value="Senior High School">Senior High School</option>
-                <option value="College">College</option>
+                <option value="Kindergarten">KINDERGRATEN</option>
+                <option value="Elementary">ELEMENTARY</option>
+                <option value="High School">HIGH SCHOOL</option>
+                <option value="Senior High School">SENIOR HIGH SCHOOL</option>
+                <option value="College">COLLEGE</option>
               </select>
             </div>
             <div id="linebar-loc" class="linebar"></div>
-            <label class="pref-label" id="levellbl2"><center>COURSE&<br>TRACK</center></label>
+            <label class="pref-label" id="levellbl2">COURSE& TRACK:</label>
             <div style="display: block; grid-row: 5; grid-column:2/3; justify-self: center; align-self: center;">
               <input type="text" id="search-input">
               <div id="autocomplete-container"></div>
             </div>
             <div id="linebar-loc" class="linebar"></div>
+            <div id="selected-container"></div>
+          </div>
+        </div>
+
+
+        <div id="explore-page3" class="Main-container" style="display: none;">
+          <div class="Main-info-container" id="Main-info-container">
+            <!--Page 3-->
+            <label id="instruction-location" class="pref-label">
+              <h3>INFO</h3>
+              <h4 style="opacity: 70%;">Please check the following information and confirm that it is correct.</h4>
+            </label>
+            <div id="linebar-loc" class="linebar"></div>
+            <label id="lblinfo1" class="pref-label">LOCATION:</label>
+            <div class="info-div-loc" id="info-div-loc1"></div>
+            <div id="linebar-loc" class="linebar"></div>
+            <label id="lblinfo2" class="pref-label">EDUCATION LEVEL:</label>
+            <div class="info-div-level" id="info-div-level1"></div>
+            <div id="linebar-loc" class="linebar"></div>
+            <label id="lblinfo3" class="pref-label"></label>
+            <div class="info-div-coursetrack"  id="info-div-coursetrack"></div>
+            </div>
             <div id="selected-container"></div>
           </div>
         </div>
